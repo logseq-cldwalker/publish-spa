@@ -22,6 +22,11 @@
                        static-dir
                        graph-dir
                        output-path
-                       {:repo-config repo-config})))
+                       {:repo-config repo-config
+                        :notification-fn (fn [msg]
+                                           (if (= "error" (:type msg))
+                                             (do (js/console.error (:payload msg))
+                                               (js/process.exit 1))
+                                             (js/console.log (:payload msg))))})))
 
 #js {:main -main}

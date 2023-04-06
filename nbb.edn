@@ -1,15 +1,15 @@
 {:deps
  {logseq/graph-parser
   {:git/url "https://github.com/logseq/logseq"
-   :git/sha "5ecb9e0a58f62d317ded892f35dfdf9d45382707"
+   :git/sha "aa330c87cea4fadba649b410fe2e1e24da582ed7"
    :deps/root "deps/graph-parser"}
   #_{:local/root "../logseq/deps/graph-parser"}
   logseq/publishing
   {:git/url "https://github.com/logseq/logseq"
-   :git/sha "5ecb9e0a58f62d317ded892f35dfdf9d45382707"
+   :git/sha "aa330c87cea4fadba649b410fe2e1e24da582ed7"
    :deps/root "deps/publishing"}
   ;; TODO: Remove hack for relative db dep
   logseq/db
   {:git/url "https://github.com/logseq/logseq"
-   :git/sha "5ecb9e0a58f62d317ded892f35dfdf9d45382707"
+   :git/sha "aa330c87cea4fadba649b410fe2e1e24da582ed7"
    :deps/root "deps/db"}}}
