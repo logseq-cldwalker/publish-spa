@@ -1,11 +1,10 @@
-(ns logseq.tasks.dev.publishing
-  "Basic script for publishing from CLI"
+(ns logseq.publish-spa
+  "Exports SPA publishing app"
   (:require [logseq.graph-parser.cli :as gp-cli]
             [logseq.publishing :as publishing]
             ["fs" :as fs]
             ["path" :as node-path]
             [clojure.edn :as edn]))
-
 
 (defn- get-db [graph-dir]
   (let [{:keys [conn]} (gp-cli/parse-graph graph-dir {:verbose false})] @conn))

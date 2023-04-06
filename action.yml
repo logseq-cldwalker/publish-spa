@@ -88,10 +88,6 @@ runs:
       run: cd _publish-spa && yarn nbb-logseq -e ':fetching-deps'
       shell: bash
 
-    # DEBUG
-    - run: ls -al _logseq/static
-      shell: bash
-
     - name: Export graph to directory
       run: cd _publish-spa && node publish_spa.mjs _logseq/static ${{ inputs.graph-directory }} ${{ inputs.output-directory }}
       shell: bash
