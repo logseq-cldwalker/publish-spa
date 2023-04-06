@@ -25,6 +25,13 @@ runs:
         path: _logseq
         ref: ${{ inputs.version }}
 
+    ## Placed here to see if node caching kicks in
+    - name: Checkout action
+      uses: actions/checkout@v3
+      with:
+        repository: logseq-cldwalker/publish-spa
+        path: _publish-spa
+
     - name: Set up Clojure
       uses: DeLaGuardo/setup-clojure@master
       with:
@@ -62,12 +69,6 @@ runs:
       shell: bash
 
      # Second, checkout action and run publish script
-    - name: Checkout action
-      uses: actions/checkout@v3
-      with:
-        repository: logseq-cldwalker/publish-spa
-        path: _publish-spa
-
     - name: Fetch yarn deps
       run: cd _publish-spa && yarn install --immutable
       shell: bash
@@ -87,6 +88,10 @@ runs:
       run: cd _publish-spa && yarn nbb-logseq -e ':fetching-deps'
       shell: bash
 
+    # DEBUG
+    - run: ls -al _logseq/static
+      shell: bash
+
     - name: Export graph to directory
-      run: cd _publish-spa && node publish_spa.mjs ../_logseq/static ${{ inputs.graph-directory }} ${{ inputs.output-directory }}
+      run: cd _publish-spa && node publish_spa.mjs _logseq/static ${{ inputs.graph-directory }} ${{ inputs.output-directory }}
       shell: bash
