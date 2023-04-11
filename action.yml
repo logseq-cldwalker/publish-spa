@@ -43,9 +43,24 @@ runs:
       with:
         node-version: '18'
         cache: 'yarn'
-        cache-dependency-path: |
-          _logseq/yarn.lock
-          _publish-spa/yarn.lock
+        cache-dependency-path: _publish-spa/yarn.lock
+
+    # Manually cache logseq deps as they didn't work with setup-node.
+    # Copied from https://github.com/actions/setup-node/issues/488 but with yarn
+    # command tweaked to what works locally
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+      shell: bash
+      working-directory: _logseq
+
+    - name: Restore logseq yarn cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: yarn-cache-folder-${{ hashFiles('_logseq/yarn.lock', '_logseq/tldraw/yarn.lock') }}
+        restore-keys: |
+          yarn-cache-folder-
 
     - name: Fetch logseq's yarn deps
       run: cd _logseq && yarn install --frozen-lockfile
