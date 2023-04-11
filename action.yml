@@ -57,16 +57,26 @@ runs:
     - name: Restore logseq yarn cache
       uses: actions/cache@v3
       with:
-        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-        key: yarn-cache-folder-${{ hashFiles('_logseq/yarn.lock', '_logseq/tldraw/yarn.lock') }}
-        restore-keys: |
-          yarn-cache-folder-
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('_logseq/**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-cache-folder
 
+    # TODO: Improve caching. Still the slowest step
     - name: Fetch logseq's yarn deps
       run: cd _logseq && yarn install --frozen-lockfile
       shell: bash
 
+    - name: logseq static cache
+      uses: actions/cache@v3
+      id: logseq-static
+      with:
+        path: _logseq/static
+        key: ${{ runner.os }}-logseq-static-${{ inputs.version }}
+        restore-keys: ${{ runner.os }}-logseq-static-${{ inputs.version }}
+
     - name: Build logseq's static directory
+      if: steps.logseq-static.outputs.cache-hit != 'true'
       run: cd _logseq && yarn gulp:build
       shell: bash
 
