@@ -48,7 +48,7 @@ runs:
           _publish-spa/yarn.lock
 
     - name: Fetch logseq's yarn deps
-      run: cd _logseq && yarn install --immutable
+      run: cd _logseq && yarn install --frozen-lockfile
       shell: bash
 
     - name: Build logseq's static directory
@@ -70,7 +70,7 @@ runs:
 
      # Second, checkout action and run publish script
     - name: Fetch yarn deps
-      run: cd _publish-spa && yarn install --immutable
+      run: cd _publish-spa && yarn install --frozen-lockfile
       shell: bash
 
     - name: Nbb cache
