@@ -77,7 +77,10 @@ runs:
       uses: actions/cache@v3
       id: nbb-deps
       with:
-        path: _publish-spa/.nbb/.cache
+        path: |
+          ~/.m2/repository
+          ~/.gitlibs
+          _publish-spa/.nbb/.cache
         key: ${{ runner.os }}-nbb-deps-${{ hashFiles('_publish-spa/nbb.edn') }}
         restore-keys: ${{ runner.os }}-nbb-deps-
 
