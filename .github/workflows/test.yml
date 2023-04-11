@@ -13,6 +13,7 @@ jobs:
         uses: logseq-cldwalker/publish-spa@github-action
         with:
           graph-directory: test/publish-test-graph
+          version: "50ff53ea72fb5fdc45296dfc6431e60d1b365414"
 
       - name: add a nojekyll file # to make sure asset paths are correctly identified
         run: touch $GITHUB_WORKSPACE/www/.nojekyll

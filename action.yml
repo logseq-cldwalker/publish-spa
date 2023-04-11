@@ -25,7 +25,7 @@ runs:
         path: _logseq
         ref: ${{ inputs.version }}
 
-    ## Placed here to see if node caching kicks in
+    ## Placed here since node step requires it
     - name: Checkout action
       uses: actions/checkout@v3
       with:
